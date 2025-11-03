@@ -11,6 +11,11 @@
 #include "parse.h"
 
 void list_employees(struct dbheader_t *dbhdr, struct employee_t *employees) {
+    if(dbhdr == NULL || employees == NULL){
+        printf("Invalid parameters to list_employees\n");
+        return;
+    }
+
     for (int i = 0; i < dbhdr->count; i++)
     {
         print_employee(i, &employees[i]);
