@@ -47,7 +47,7 @@ int query_employees(struct dbheader_t *dbhdr, struct employee_t *employees, char
             }
         }
         else if(strcmp(column, "hours") == 0){
-            if(employees[i].hours == atoi(value)){
+            if(employees[i].hours == (unsigned int)atoi(value)){
                 print_employee(i, &employees[i]);
             }
         }
@@ -237,7 +237,7 @@ int validate_db_header(int fd, struct dbheader_t **headerOut) {
     return STATUS_SUCCESS;
 }
 
-int create_db_header(int fd, struct dbheader_t **headerOut) {
+int create_db_header(struct dbheader_t **headerOut) {
 	struct dbheader_t *header = calloc(1, sizeof(struct dbheader_t));
     if(header == NULL){
         printf("Malloc failed to create db header\n");
