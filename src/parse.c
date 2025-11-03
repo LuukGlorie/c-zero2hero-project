@@ -61,6 +61,11 @@ int query_employees(struct dbheader_t *dbhdr, struct employee_t *employees, char
 
 
 int add_employee(struct dbheader_t *dbhdr, struct employee_t **employees, char *addstring) {
+    if(addstring == NULL || employees == NULL || dbhdr == NULL){
+        printf("Invalid parameters to add_employee\n");
+        return STATUS_ERROR;
+    }
+    
     dbhdr->count++;
     if (*employees == NULL) {
         *employees = calloc(dbhdr->count, sizeof(struct employee_t));
