@@ -98,15 +98,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	if(addstring){
-		header->count++;
-		if (employees == NULL) {
-        	employees = calloc(header->count, sizeof(struct employee_t));
-    	} 
-		else {
-        	employees = realloc(employees, header->count * sizeof(struct employee_t));
-		}
-
-		add_employee(header, employees, addstring);
+		add_employee(header, &employees, addstring);
 	}
 	else if (removeName)
 	{

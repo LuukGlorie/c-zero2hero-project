@@ -60,16 +60,25 @@ int query_employees(struct dbheader_t *dbhdr, struct employee_t *employees, char
 }
 
 
-int add_employee(struct dbheader_t *dbhdr, struct employee_t *employees, char *addstring) {
-    
+int add_employee(struct dbheader_t *dbhdr, struct employee_t **employees, char *addstring) {
+    dbhdr->count++;
+    if (*employees == NULL) {
+        *employees = calloc(dbhdr->count, sizeof(struct employee_t));
+    } 
+    else {
+        *employees = realloc(*employees, dbhdr->count * sizeof(struct employee_t));
+    }
+
+    struct employee_t* empArray = *employees;
+
     char* name = strtok(addstring, ",");
     char* addr = strtok(NULL, ",");
     char* hours = strtok(NULL, ",");
 
-    strncpy(employees[dbhdr->count - 1].name, name, sizeof(employees[dbhdr->count - 1].name));
-    strncpy(employees[dbhdr->count - 1].address, addr, sizeof(employees[dbhdr->count - 1].address));
+    strncpy(empArray[dbhdr->count - 1].name, name, sizeof(empArray[dbhdr->count - 1].name));
+    strncpy(empArray[dbhdr->count - 1].address, addr, sizeof(empArray[dbhdr->count - 1].address));
     
-    employees[dbhdr->count - 1].hours = atoi(hours);
+    empArray[dbhdr->count - 1].hours = atoi(hours);
 
     return STATUS_SUCCESS;
 }
