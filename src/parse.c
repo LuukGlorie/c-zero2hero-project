@@ -80,6 +80,11 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employees, char *
     char* addr = strtok(NULL, ",");
     char* hours = strtok(NULL, ",");
 
+    if(name == NULL || addr == NULL || hours == NULL){
+        printf("Invalid add string\n");
+        return STATUS_ERROR;
+    }
+
     strncpy(empArray[dbhdr->count - 1].name, name, sizeof(empArray[dbhdr->count - 1].name));
     strncpy(empArray[dbhdr->count - 1].address, addr, sizeof(empArray[dbhdr->count - 1].address));
     
